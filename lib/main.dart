@@ -49,6 +49,10 @@ void callbackDispatcher() {
 GetIt getIt = GetIt.instance;
 
 void main() {
+  // Registramos los servicios que utilizaremos a través de getIt.instance
+  setUpLocator();
+
+  // App
   runApp(MyApp());
 
   // En la documentacion se señala que se debe añadir workmanager a los
@@ -82,47 +86,6 @@ class _MyAppState extends State<MyApp> {
           child: Icon(Icons.menu),
         ),
       ),
-    );
-  }
-}
-
-class P1 extends StatelessWidget {
-  const P1({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 600,
-      color: Colors.blue,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: Container(),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class P2 extends StatelessWidget {
-  const P2({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return StreamBuilder(
-      initialData: '',
-      builder: (BuildContext ctx, AsyncSnapshot snapshot) {
-        return Container();
-      },
     );
   }
 }
