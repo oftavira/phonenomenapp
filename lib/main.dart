@@ -43,13 +43,8 @@ void callbackDispatcher() {
   });
 }
 
-// Creacion de un sistema de rutas sencillo para organizar las utilidades
-// utilizando GetIt
-
-GetIt getIt = GetIt.instance;
-
 void main() {
-  // Registramos los servicios que utilizaremos a través de getIt.instance
+  // Registramos los servicios que utilizaremos a través de locator (GetIt.instance)
   setUpLocator();
 
   // App
@@ -66,8 +61,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final _scaffoldKey = getIt<AppNavigator>().scaffoldKey;
-  final _navigatorKey = getIt<AppNavigator>().navKey;
+  final _scaffoldKey = locator<AppNavigator>().scaffoldKey;
+  final _navigatorKey = locator<AppNavigator>().navKey;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
