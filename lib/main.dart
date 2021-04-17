@@ -2,7 +2,8 @@
 import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:phonenomenapp/navigation_service.dart';
+import 'package:phonenomenapp/local_widgets/drawer.dart';
+import 'package:phonenomenapp/navigation/navigation_service.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:get_it/get_it.dart';
 
@@ -43,20 +44,18 @@ void callbackDispatcher() {
 }
 
 // Creacion de un sistema de rutas sencillo para organizar las utilidades
+// utilizando GetIt
 
 GetIt getIt = GetIt.instance;
 
 void main() {
   runApp(MyApp());
 
-  getIt.registerLazySingleton(() => AppNavigator());
-
   // En la documentacion se señala que se debe añadir workmanager a los
   // canales de entrada de flutter
   Workmanager.initialize(callbackDispatcher, isInDebugMode: true);
 }
 
-/// example widget for call log plugin
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -82,49 +81,6 @@ class _MyAppState extends State<MyApp> {
           onPressed: () => _scaffoldKey.currentState.openDrawer(),
           child: Icon(Icons.menu),
         ),
-      ),
-    );
-  }
-}
-
-class NavigateTo extends StatelessWidget {
-  final String route;
-  final String text;
-  const NavigateTo({Key key, this.route, this.text}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        height: 60,
-        width: 150,
-        color: Colors.yellow[100],
-        child: Text(
-          text,
-          style: TextStyle(fontSize: 15),
-        ),
-      ),
-      onTap: () {
-        getIt<AppNavigator>().navKey.currentState.pushNamed(route);
-      },
-    );
-  }
-}
-
-class BasicDrawer extends StatelessWidget {
-  const BasicDrawer({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      width: 200,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          NavigateTo(text: 'Pagina 1', route: '/pagina1'),
-          NavigateTo(text: 'Pagina 1', route: '/pagina2'),
-        ],
       ),
     );
   }
